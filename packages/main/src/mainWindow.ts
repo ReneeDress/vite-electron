@@ -47,7 +47,7 @@ async function createWindow() {
      * @see https://github.com/nodejs/node/issues/12682
      * @see https://github.com/electron/electron/issues/6869
      */
-    await browserWindow.loadFile(resolve(__dirname, '../../renderer/dist/index.html'));
+    await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'));
   }
 
   return browserWindow;
