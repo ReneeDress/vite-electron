@@ -1,7 +1,8 @@
-import {app} from 'electron';
+import { app } from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow';
-import {platform} from 'node:process';
+import { restoreOrCreateWindow } from '/@/mainWindow';
+import { platform } from 'node:process';
+// import * as usbDetection from 'usb-detection';
 
 /**
  * Prevent electron from running multiple instances.
@@ -38,7 +39,7 @@ app.on('activate', restoreOrCreateWindow);
 app
   .whenReady()
   .then(restoreOrCreateWindow)
-  .catch(e => console.error('Failed create window:', e));
+  .catch((e: any) => console.error('Failed create window:', e));
 
 /**
  * Install Vue.js or any other extension in development mode only.
@@ -82,5 +83,5 @@ if (import.meta.env.PROD) {
        */
       require('electron-updater').autoUpdater.checkForUpdatesAndNotify(),
     )
-    .catch(e => console.error('Failed check and install updates:', e));
+    .catch((e: any) => console.error('Failed check and install updates:', e));
 }
