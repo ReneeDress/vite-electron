@@ -9,7 +9,7 @@ const USBDetection = () => {
         //     console.log(res);
         // });
         // console.log(doSomething());
-        console.log(getUserData('/Users/i562752/Projects/CraneMagic/vite-electron/packages/renderer_react/src/pages/USBDetection/test.json').then((res) => console.log('/Users/i562752/Projects/CraneMagic/vite-electron/packages/renderer_react/src/pages/USBDetection/test.json', res)));
+        console.log(getUserData('../../renderer_react/src/pages/USBDetection/test.json').then((res) => console.log('../../renderer_react/src/pages/USBDetection/test.json', res)));
     }, []);
 
     return (
