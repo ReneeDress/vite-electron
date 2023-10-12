@@ -3,7 +3,24 @@ import { usb, getDeviceList, WebUSBDevice } from 'usb';
 
 interface WebUSBDeviceWithLegacy extends WebUSBDevice {
     legacy?: usb.Device;
+    vendorIdHex?: string;
+    productIdHex?: string;
 }
+
+function int2Hex (num = 0) {
+    if (num === 0) {
+        return '0';
+    }
+    const HEXS = '0123456789abcdef';
+    let hex = '';
+    while (num) {
+        console.log(num, num % 16, HEXS.charAt(num % 16));
+        hex = HEXS.charAt(num % 16) + hex;
+        num = Math.floor(num / 16);
+    }
+    return hex;
+}
+  
 
 const getWebUSBDevices = async () => {
     const legacyDevices = getDeviceList();
@@ -22,6 +39,8 @@ const getWebUSBDevices = async () => {
             if (webDevice) {
                 // console.log(webDevice); // WebUSB device
                 webDevice.legacy = device;
+                webDevice.vendorIdHex = int2Hex(webDevice.vendorId).padStart(4, '0');
+                webDevice.productIdHex = int2Hex(webDevice.productId).padStart(4, '0');
                 webDevices = [...webDevices, webDevice];
             }
         })();

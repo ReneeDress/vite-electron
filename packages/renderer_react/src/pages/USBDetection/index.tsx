@@ -11,9 +11,11 @@ const USBDetection = () => {
 
     const muiCols: GridColDef<any>[] = [
         { field: 'vendorId', },
-        { field: 'productId', },
-        { field: 'productName', },
+        { field: 'vendorIdHex', },
         { field: 'manufacturerName', },
+        { field: 'productId', },
+        { field: 'productIdHex', },
+        { field: 'productName', },
         { field: 'serialNumber', }
     ];
 
@@ -37,11 +39,11 @@ const USBDetection = () => {
         // 通过preload接收主进程的回调信息
         api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
             console.log(event, res)
-            setDevices(res.map((row) => {
+            setDevices(res.map((device) => {
                 return {
-                    ...row,
-                    id: row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct,
-                    key: row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct,
+                    ...device,
+                    id: `${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct,
+                    key: `${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct,
                 }
             }));
         })
