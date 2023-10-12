@@ -30,7 +30,7 @@ const App: React.FC = () => {
         Click on the Vite and React logos to learn more
       </p> */}
       <p>
-        <a href={`/usb-detection`}>USB Detection</a>
+        <a href={`/usb-devices`}>USB Devices</a>
       </p>
     </>
   )

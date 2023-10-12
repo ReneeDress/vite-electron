@@ -14,7 +14,7 @@ function int2Hex (num = 0) {
     const HEXS = '0123456789abcdef';
     let hex = '';
     while (num) {
-        console.log(num, num % 16, HEXS.charAt(num % 16));
+        // console.log(num, num % 16, HEXS.charAt(num % 16));
         hex = HEXS.charAt(num % 16) + hex;
         num = Math.floor(num / 16);
     }

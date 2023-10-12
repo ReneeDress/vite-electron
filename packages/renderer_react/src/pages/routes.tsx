@@ -1,9 +1,9 @@
 import { RouteObject } from 'react-router-dom';
-import USBDetection from './USBDetection';
+import USBDevices from './USBDevices';
 
 export const routes: RouteObject[] = [
   {
-    path: '/usb-detection',
-    element: <USBDetection />,
+    path: '/usb-devices',
+    element: <USBDevices />,
   },
 ];

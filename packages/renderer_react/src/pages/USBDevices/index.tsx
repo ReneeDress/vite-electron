@@ -1,12 +1,12 @@
 import { getUserData, api, electron } from '#preload';
 import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Table } from 'antd';
+import { Divider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 
 const { ipcRenderer } = electron;
 
-const USBDetection = () => {
+const USBDevices = () => {
     const [devices, setDevices] = useState<any[]>([]);
 
     const muiCols: GridColDef<any>[] = [
@@ -19,12 +19,17 @@ const USBDetection = () => {
         { field: 'serialNumber', }
     ];
 
-    const antdCols: ColumnsType<any> = muiCols.map((i) => {
+    const antdCols: ColumnsType<any> = muiCols.map((i, index) => {
         return {
             ...i,
             dataIndex: i.field,
             title: i?.headerName || i.field,
             colSpan: 1,
+            sorter: {
+                compare: (a, b) => a[i.field] - b[i.field],
+                multiple: muiCols.length - index + 1,
+            },
+            filters: []
         }
     });
     
@@ -42,14 +47,14 @@ const USBDetection = () => {
             setDevices(res.map((device) => {
                 return {
                     ...device,
-                    id: `${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct,
-                    key: `${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct,
+                    id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+                    key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
                 }
             }));
         })
         
         
-        console.log(getUserData('../../renderer_react/src/pages/USBDetection/test.json').then((res) => console.log('../../renderer_react/src/pages/USBDetection/test.json', res)));
+        console.log(getUserData('../../renderer_react/src/pages/USBDevices/test.json').then((res) => console.log('../../renderer_react/src/pages/USBDevices/test.json', res)));
     }, []);
 
     const onClickGetDevices = () => {
@@ -59,11 +64,11 @@ const USBDetection = () => {
         // 通过preload接收主进程的回调信息
         api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
             console.log(event, res)
-            setDevices(res.map((row) => {
+            setDevices(res.map((device) => {
                 return {
-                    ...row,
-                    id: row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct,
-                    key: row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct,
+                    ...device,
+                    id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+                    key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
                 }
             }));
         })
@@ -71,13 +76,19 @@ const USBDetection = () => {
 
     return (
         <>
-            <p>USBDetection</p>
+            <p>USBDevices</p>
             <p>
                 <a href={`/`}>Home</a>
             </p>
             <p>
                 <button onClick={onClickGetDevices}>onClickGetDevices</button>
             </p>
+            <div>
+                <Table columns={antdCols} dataSource={devices} pagination={false}></Table>
+            </div>
+            
+            <Divider />
+
             <div>
                 <DataGrid
                     rows={devices}
@@ -92,11 +103,9 @@ const USBDetection = () => {
                     // getRowId={(row) => row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct}
                 />
             </div>
-            <div>
-                <Table columns={antdCols} dataSource={devices}></Table>
-            </div>
+            
         </>
     )
 }
 
-export default USBDetection;
+export default USBDevices;
