@@ -3,6 +3,8 @@ import { join, resolve } from 'node:path';
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
+    width: 1920,
+    height: 1080,
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     webPreferences: {
       nodeIntegration: true,

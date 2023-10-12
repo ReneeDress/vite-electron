@@ -7,10 +7,24 @@ import {
 import App from './App.tsx'
 import './index.css'
 import { routes } from './pages/routes.tsx';
+import { ConfigProvider } from 'antd';
+// import zhCN from 'antd/locale/zh_CN';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { zhCN } from '@mui/material/locale';
+
+const theme = createTheme(
+  {
+    palette: {
+      primary: { main: '#1976d2' },
+    },
+  },
+  zhCN,
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
+    // element: <ConfigProvider locale={zhCN}><App /></ConfigProvider>,
     element: <App />,
   },
   ...routes,
@@ -18,6 +32,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </React.StrictMode>
 )

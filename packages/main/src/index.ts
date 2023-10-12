@@ -1,7 +1,8 @@
-import { app } from 'electron';
+import { app, ipcMain } from 'electron';
 import './security-restrictions';
 import { restoreOrCreateWindow } from '/@/mainWindow';
 import { platform } from 'node:process';
+import { getUSBDevices } from './usbDevices';
 // import * as usbDetection from 'usb-detection';
 
 /**
@@ -85,3 +86,6 @@ if (import.meta.env.PROD) {
     )
     .catch((e: any) => console.error('Failed check and install updates:', e));
 }
+
+
+ipcMain.on('getUSBDevices', getUSBDevices);
