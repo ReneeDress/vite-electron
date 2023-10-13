@@ -1,9 +1,31 @@
 import { RouteObject } from 'react-router-dom';
+import Home from './Home';
 import USBDevices from './USBDevices';
 
-export const routes: RouteObject[] = [
+interface CustomRouteObject {
+  route: RouteObject;
+  menuData?: any;
+}
+
+export const customRoutes: CustomRouteObject[] = [
   {
-    path: '/usb-devices',
-    element: <USBDevices />,
+    route: {
+      path: '/',
+      element: <Home />,
+    },
+    menuData: {
+      label: '首页',
+    },
+  },
+  {
+    route: {
+      path: '/usb-devices',
+      element: <USBDevices />,
+    },
+    menuData: {
+      label: 'USB设备',
+    },
   },
 ];
+
+export const routes: RouteObject[] = customRoutes.map(item => item.route);

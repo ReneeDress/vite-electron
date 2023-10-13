@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Divider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { Link } from 'react-router-dom';
 
 const { ipcRenderer } = electron;
 
@@ -78,13 +79,19 @@ const USBDevices = () => {
         <>
             <p>USBDevices</p>
             <p>
-                <a href={`/`}>Home</a>
+                <Link to={'/'}>Home</Link>
             </p>
             <p>
                 <button onClick={onClickGetDevices}>onClickGetDevices</button>
             </p>
             <div>
-                <Table columns={antdCols} dataSource={devices} pagination={false}></Table>
+                <Table
+                    tableLayout='auto'
+                    columns={antdCols} 
+                    dataSource={devices} 
+                    pagination={false}
+                    scroll={{ x: true }}
+                />
             </div>
             
             <Divider />

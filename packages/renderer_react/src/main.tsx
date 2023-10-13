@@ -8,9 +8,9 @@ import App from './App.tsx'
 import './index.css'
 import { routes } from './pages/routes.tsx';
 import { ConfigProvider } from 'antd';
-// import zhCN from 'antd/locale/zh_CN';
+import zhCN from 'antd/locale/zh_CN';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { zhCN } from '@mui/material/locale';
+// import { zhCN } from '@mui/material/locale';
 
 const theme = createTheme(
   {
@@ -32,8 +32,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    {/* <ThemeProvider theme={theme}> */}
+      <ConfigProvider locale={zhCN}>
+        <App />
+      </ConfigProvider>
+    {/* </ThemeProvider> */}
   </React.StrictMode>
 )
