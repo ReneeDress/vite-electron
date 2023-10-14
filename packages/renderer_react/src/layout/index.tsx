@@ -6,7 +6,7 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { Breadcrumb, Layout, Menu, Typography } from 'antd';
+import { Layout, Menu, Typography } from 'antd';
 import { customRoutes, routes } from '../pages/routes';
 import { MenuItemType } from 'antd/es/menu/hooks/useItems';
 
@@ -35,7 +35,7 @@ const DefaultLayout = () => {
 
   const ifSider = () => {
     const children = routes.find((item) => {
-        return (item.path !== '/') && (item.path)?.indexOf(location.pathname);
+        return (item.path !== '/') &&  ((item.path)?.indexOf(location.pathname) ?? -1) >= 0;
     })?.children;
     console.log('[DefaultLayout]', children);
     return children ? true : false
@@ -49,7 +49,8 @@ const DefaultLayout = () => {
     console.log('[DefaultLayout]','location changed', `/${location.pathname.split('/')[1]}`);
     setSelectedHeaderIndex(`/${location.pathname.split('/')[1]}`);
     const matchedPage = customRoutes.find((item) => {
-        return (item.route.path !== '/') && (item.route.path)?.indexOf(location.pathname);
+      console.log(item.route.path, (item.route.path)?.indexOf(location.pathname), item)
+        return ((item.route.path)?.indexOf(location.pathname) ?? -1) >= 0;
     });
     console.log('[DefaultLayout]','matchedPage', matchedPage);
     if (matchedPage)
@@ -91,7 +92,7 @@ const DefaultLayout = () => {
         
         <Layout style={{ padding: '0 24px 24px' }}>
           {/* <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb> */}
-          <Title>{ currentPageInfo?.title }</Title>
+          <Title level={3}>{ currentPageInfo?.title }</Title>
           {JSON.stringify(currentPageInfo)}
           <Content
             style={{
