@@ -5,6 +5,7 @@ import USBDevices from './USBDevices';
 interface CustomRouteObject {
   route: RouteObject;
   menuData?: any;
+  pageInfo?: any;
 }
 
 export const customRoutes: CustomRouteObject[] = [
@@ -16,6 +17,11 @@ export const customRoutes: CustomRouteObject[] = [
     menuData: {
       label: '首页',
     },
+    pageInfo: {
+      title: '首页',
+      subtitle: '',
+      titleVisibility: false,
+    }
   },
   {
     route: {
@@ -25,6 +31,11 @@ export const customRoutes: CustomRouteObject[] = [
     menuData: {
       label: 'USB设备',
     },
+    pageInfo: {
+      title: 'USB设备',
+      subtitle: '',
+      titleVisibility: true,
+    }
   },
 ];
 

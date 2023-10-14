@@ -6,25 +6,17 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { Breadcrumb, Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu, Typography } from 'antd';
 import { customRoutes, routes } from '../pages/routes';
 import { MenuItemType } from 'antd/es/menu/hooks/useItems';
-import { MenuInfo } from 'rc-menu/lib/interface';
 
 const { Header, Content, Sider } = Layout;
+const { Title } = Typography;
 
 const DefaultLayout = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  const ifSider = () => {
-    const children = routes.find((item) => {
-        return (item.path !== '/') && (item.path)?.indexOf(location.pathname);
-    })?.children;
-    console.log('[DefaultLayout]', children);
-    return children ? true : false
-  };
 
   const HeaderMenu: MenuItemType[] = customRoutes.map((item) => {
     if (item?.menuData)
@@ -37,15 +29,31 @@ const DefaultLayout = () => {
 
   const [selectedHeaderIndex, setSelectedHeaderIndex] = useState<string>('/');
 
-  const handleMenuItemClick = (info: MenuInfo) => {
+  const handleMenuItemClick = (info: any) => {
     navigate(info.key);
   }
 
+  const ifSider = () => {
+    const children = routes.find((item) => {
+        return (item.path !== '/') && (item.path)?.indexOf(location.pathname);
+    })?.children;
+    console.log('[DefaultLayout]', children);
+    return children ? true : false
+  };
+
   const SiderMenu: MenuItemType[] = [];
+
+  const [currentPageInfo, setCurrentPageInfo] = useState<any>();
 
   useEffect(() => {
     console.log('[DefaultLayout]','location changed', `/${location.pathname.split('/')[1]}`);
     setSelectedHeaderIndex(`/${location.pathname.split('/')[1]}`);
+    const matchedPage = customRoutes.find((item) => {
+        return (item.route.path !== '/') && (item.route.path)?.indexOf(location.pathname);
+    });
+    console.log('[DefaultLayout]','matchedPage', matchedPage);
+    if (matchedPage)
+        setCurrentPageInfo(matchedPage?.pageInfo);
   }, [location]);
 
   return (
@@ -82,7 +90,9 @@ const DefaultLayout = () => {
         }
         
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb>
+          {/* <Breadcrumb style={{ margin: '16px 0' }}></Breadcrumb> */}
+          <Title>{ currentPageInfo?.title }</Title>
+          {JSON.stringify(currentPageInfo)}
           <Content
             style={{
               padding: 24,
