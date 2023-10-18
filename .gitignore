@@ -57,3 +57,4 @@ thumbs.db
 .idea/httpRequests
 /.idea/csv-plugin.xml
 npminstall-debug.log
+yarn-error.log
