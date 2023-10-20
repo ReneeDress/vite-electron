@@ -1,6 +1,5 @@
 import { getUserData, api, electron } from '#preload';
 import { useEffect, useState } from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Divider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,7 @@ const { ipcRenderer } = electron;
 const SystemInfo = () => {
     const [devices, setDevices] = useState<any[]>([]);
 
-    const muiCols: GridColDef<any>[] = [
+    const muiCols: any[] = [
         { field: 'vendorId', },
         { field: 'vendorIdHex', },
         { field: 'manufacturerName', },
@@ -85,32 +84,10 @@ const SystemInfo = () => {
                 <button onClick={onClickGetDevices}>onClickGetDevices</button>
             </p>
             <div>
-                <Table
-                    tableLayout='auto'
-                    columns={antdCols} 
-                    dataSource={devices} 
-                    pagination={false}
-                    scroll={{ x: true }}
-                />
+
             </div>
             
             <Divider />
-
-            <div>
-                <DataGrid
-                    rows={devices}
-                    columns={muiCols}
-                    initialState={{
-                        pagination: {
-                            paginationModel: { page: 0, pageSize: 5 },
-                        },
-                    }}
-                    pageSizeOptions={[5, 10]}
-                    // checkboxSelection
-                    // getRowId={(row) => row?.productId || row?.legacy?.deviceDescriptor?.idProduct || row?.deviceDescriptor?.idProduct}
-                />
-            </div>
-            
         </>
     )
 }

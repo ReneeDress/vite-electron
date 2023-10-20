@@ -9,7 +9,7 @@ const { ipcRenderer } = electron;
 const USBDevices = () => {
     const [devices, setDevices] = useState<any[]>([]);
 
-    const muiCols: GridColDef<any>[] = [
+    const muiCols: any[] = [
         { field: 'vendorId', },
         { field: 'vendorIdHex', },
         { field: 'manufacturerName', },
