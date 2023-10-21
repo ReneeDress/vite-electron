@@ -29,7 +29,7 @@ const Measurement = () => {
         current={currentStepIndex}
         items={steps}
       />
-      <div style={{ marginTop: 24 }}>
+      <div className='actionRow' style={{ marginTop: 24 }}>
         {currentStepIndex > 0 && (
           <Button
             style={{ margin: '0 8px' }}
