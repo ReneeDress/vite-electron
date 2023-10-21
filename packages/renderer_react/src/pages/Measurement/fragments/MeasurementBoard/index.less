@@ -1,0 +1,57 @@
+.measurementBoard {
+    .temp {
+        display: none;
+        visibility: hidden;
+    }
+
+    &__content {
+        padding: 1rem 1rem;
+        background-color: #ffffff;
+        border-radius: 1rem;
+
+        display: flex;
+        flex-direction: row;
+        // justify-content: center;
+        // align-items: center;
+
+        &-left, &-right {
+            // width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-left {
+            flex: 3;
+        }
+
+        &-right {
+            flex: 2;
+        }
+
+        .dataRow {
+            padding: .5rem 0;
+            // background-color: aliceblue;
+        }
+
+        .dataCell {
+            padding: .1rem 0;
+            background-color: aliceblue;
+            // border: solid 1px black;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            &.header {
+                font-size: .9rem;
+                font-weight: 900;
+            }
+
+            &.itemName {
+                font-size: .9rem;
+                font-weight: 900;
+            }
+        }
+    }
+}

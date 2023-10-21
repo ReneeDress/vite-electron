@@ -1,8 +1,33 @@
 import { useState } from 'react';
 import { Button, Steps, message } from 'antd';
+import './index.less';
+import MeasurementBoard from './fragments/MeasurementBoard';
+
+const MeasurementStepMap = [
+  <>MeasurementStepMap0</>,
+  <MeasurementBoard />,
+  <>MeasurementStepMap2</>
+]
+
+interface MeasurementStepProps {
+  stepIndex: number;
+  [key: string]: any;
+}
+
+const MeasurementStep = (props: MeasurementStepProps) => {
+  const { stepIndex } = props;
+  return (
+    <>
+      {/* {`MeasurementStep${stepIndex + 1}`} */}
+      <div className="contentWrapper">
+        { MeasurementStepMap[stepIndex] }
+      </div>
+    </>
+  )
+}
 
 const Measurement = () => {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const steps = [
     {
       title: '相机状态检查',
@@ -24,11 +49,17 @@ const Measurement = () => {
 
   return (
     <>
-      Measurement
-      <Steps
-        current={currentStepIndex}
-        items={steps}
-      />
+      <div className='stepsRow'>
+        <Steps
+          current={currentStepIndex}
+          items={steps}
+        />
+      </div>
+      <div className='stepContent'>
+      {
+        <MeasurementStep stepIndex={currentStepIndex} />
+      }
+      </div>
       <div className='actionRow' style={{ marginTop: 24 }}>
         {currentStepIndex > 0 && (
           <Button

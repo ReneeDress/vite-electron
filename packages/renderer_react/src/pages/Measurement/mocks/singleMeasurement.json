@@ -1,0 +1,62 @@
+{
+    "threadLengthL4": {
+        "measureValue": 53.439,
+        "standardValue": 53.98,
+        "tolerance": -0.541044,
+        "compliance": false
+    },
+    "threadTaper": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "threadPitch": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "teethHeight": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "crestHeight": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "crestDiameter": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "cumulativePitch": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "outerChamfer": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "toothProfileAngle": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    },
+    "ovality": {
+        "measureValue": 0,
+        "standardValue": 0,
+        "tolerance": 0,
+        "compliance": false
+    }
+}

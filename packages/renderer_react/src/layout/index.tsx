@@ -102,9 +102,9 @@ const DefaultLayout = () => {
               // background: colorBgContainer,
             }}
           >
-            {JSON.stringify(HeaderMenu)}
+            {/* {JSON.stringify(HeaderMenu)}
             {selectedHeaderIndex}
-            {JSON.stringify(location)}
+            {JSON.stringify(location)} */}
             <Outlet />
           </Content>
         </Layout>
