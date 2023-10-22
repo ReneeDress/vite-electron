@@ -4,17 +4,26 @@
         visibility: hidden;
     }
 
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+
     &__content {
-        padding: 1rem 1rem;
-        background-color: #ffffff;
-        border-radius: 1rem;
+        // padding: 1rem 1rem;
+        // background-color: #ffffff;
+        // border-radius: 1rem;
 
         display: flex;
         flex-direction: row;
+        column-gap: 1.5rem;
         // justify-content: center;
         // align-items: center;
 
         &-left, &-right {
+            padding: 1rem 1rem;
+            background-color: #ffffff;
+            border-radius: 1rem;
+
             // width: 100%;
             display: flex;
             flex-direction: column;

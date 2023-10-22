@@ -66,7 +66,7 @@ const Measurement = () => {
             style={{ margin: '0 8px' }}
             onClick={() => changeStep(-1)}
           >
-            Previous
+            上一步
           </Button>
         )}
         {currentStepIndex < steps.length - 1 && (
@@ -74,7 +74,7 @@ const Measurement = () => {
             type="primary"
             onClick={() => changeStep(+1)}
           >
-            Next
+            下一步
           </Button>
         )}
         {currentStepIndex === steps.length - 1 && (
@@ -82,7 +82,7 @@ const Measurement = () => {
             type="primary"
             onClick={() => message.success('Processing complete!')}
           >
-            Done
+            结束测量
           </Button>
         )}
       </div>

@@ -37,7 +37,7 @@ interface ProductMeasurementInfo extends ProductInfo {
     qualifiedRate: number;
 }
 
-interface MeasurementStatistics {
+export interface MeasurementStatistics {
     scope?: string;
     total: number;
     qualified?: number;
