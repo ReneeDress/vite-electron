@@ -5,6 +5,12 @@ export interface dataFormat {
     compliance?: boolean;
 }
 
+export interface measureDataFormat {
+    max?: number;
+    min?: number;
+    average?: number;
+}
+
 export interface MeasurementData {
     [key: string]: dataFormat;
     // 螺纹长度L4 mm
