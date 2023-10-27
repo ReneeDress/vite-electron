@@ -1,10 +1,10 @@
 // import React from 'react';
 import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { routes } from './pages/routes';
 import DefaultLayout from './layout';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <DefaultLayout />,
