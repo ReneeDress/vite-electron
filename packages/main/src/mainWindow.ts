@@ -1,8 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import { join, resolve } from 'node:path';
 
-async function createWindow() {
+async function createWindow(title?: string) {
   const browserWindow = new BrowserWindow({
+    title,
     width: 1920,
     height: 1080,
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
@@ -38,7 +39,7 @@ async function createWindow() {
     /**
      * Load from the Vite dev server for development.
      */
-    await browserWindow.loadURL(import.meta.env.VITE_DEV_SERVER_URL);
+    await browserWindow.loadURL(`${import.meta.env.VITE_DEV_SERVER_URL}?electronWindow=${title ?? ''}`);
   } else {
     /**
      * Load from the local file system for production and test.
@@ -49,7 +50,7 @@ async function createWindow() {
      * @see https://github.com/nodejs/node/issues/12682
      * @see https://github.com/electron/electron/issues/6869
      */
-    await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'));
+    await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'), { query: { electronWindow: title ?? '' } });
   }
 
   return browserWindow;
@@ -59,14 +60,24 @@ async function createWindow() {
  * Restore an existing BrowserWindow or Create a new BrowserWindow.
  */
 export async function restoreOrCreateWindow() {
-  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed());
+  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title === 'main');
+  let subWindow = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title !== 'main');
+  console.log('restoreOrCreateWindow', window, window?.title, subWindow);
 
   if (window === undefined) {
-    window = await createWindow();
+    window = await createWindow('main');
+  }
+
+  if (subWindow === undefined) {
+    subWindow = await createWindow('sub');
   }
 
   if (window.isMinimized()) {
     window.restore();
+  }
+
+  if (subWindow.isMinimized()) {
+    subWindow.restore();
   }
 
   window.focus();

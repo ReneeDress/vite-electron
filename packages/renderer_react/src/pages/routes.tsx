@@ -15,7 +15,7 @@ interface CustomRouteObject {
 export const customRoutes: CustomRouteObject[] = [
   {
     route: {
-      path: '/',
+      path: '',
       element: <Home />,
     },
     menuData: {
@@ -29,7 +29,7 @@ export const customRoutes: CustomRouteObject[] = [
   },
   {
     route: {
-      path: '/measurement',
+      path: 'measurement',
       element: <Measurement />,
     },
     menuData: {
@@ -43,7 +43,7 @@ export const customRoutes: CustomRouteObject[] = [
   },
   {
     route: {
-      path: '/history-logs',
+      path: 'history-logs',
       element: <HistoryLogs />,
       children: [
         
@@ -60,7 +60,7 @@ export const customRoutes: CustomRouteObject[] = [
   },
   {
     route: {
-      path: '/camera-calibration',
+      path: 'camera-calibration',
       element: <CameraCalibration />,
     },
     menuData: {
@@ -74,7 +74,7 @@ export const customRoutes: CustomRouteObject[] = [
   },
   {
     route: {
-      path: '/usb-devices',
+      path: 'usb-devices',
       element: <USBDevices />,
     },
     menuData: {
@@ -88,7 +88,7 @@ export const customRoutes: CustomRouteObject[] = [
   },
   {
     route: {
-      path: '/system-info',
+      path: 'system-info',
       element: <SystemInfo />,
     },
     menuData: {

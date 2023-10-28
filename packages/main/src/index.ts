@@ -1,9 +1,8 @@
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, BrowserWindow } from 'electron';
 import './security-restrictions';
 import { restoreOrCreateWindow } from '/@/mainWindow';
 import { platform } from 'node:process';
 import { getUSBDevices } from './usbDevices';
-// import * as usbDetection from 'usb-detection';
 
 /**
  * Prevent electron from running multiple instances.
@@ -32,7 +31,10 @@ app.on('window-all-closed', () => {
 /**
  * @see https://www.electronjs.org/docs/latest/api/app#event-activate-macos Event: 'activate'.
  */
-app.on('activate', restoreOrCreateWindow);
+app.on('activate', () => {
+  restoreOrCreateWindow();
+  restoreOrCreateWindow();
+});
 
 /**
  * Create the application window when the background process is ready.
@@ -40,6 +42,9 @@ app.on('activate', restoreOrCreateWindow);
 app
   .whenReady()
   .then(restoreOrCreateWindow)
+  .then(() => {
+    console.log(BrowserWindow.getAllWindows());
+  })
   .catch((e: any) => console.error('Failed create window:', e));
 
 /**

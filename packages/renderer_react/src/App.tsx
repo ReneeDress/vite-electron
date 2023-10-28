@@ -1,8 +1,9 @@
-// import React from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { routes } from './pages/routes';
 import DefaultLayout from './layout';
+import Display from './pages/Display';
 
 const router = createHashRouter([
   {
@@ -10,9 +11,23 @@ const router = createHashRouter([
     element: <DefaultLayout />,
     children: [...routes],
   },
+  {
+    path: '/display',
+    element: <Display />
+  }
 ]);
 
 const App = () => {
+  const params = new URLSearchParams(location.search);
+  
+  useEffect(() => {
+    console.log(params.get('electronWindow'));
+    if (params.get('electronWindow') === 'sub') {
+      location.hash = '/display';
+      location.search = '';
+    }
+  }, []);
+
   return <RouterProvider router={router} />;
 };
 
