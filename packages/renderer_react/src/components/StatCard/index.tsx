@@ -24,7 +24,7 @@ const StatCard = (props: StatCardProps) => {
     
     return (
         <div className="StatCard">
-            <Card className='CardContainer' title={title} bordered={false} size={'small'}>
+            <Card className='CardContainer' title={title} bordered={false}>
                 {
                     description ? 
                     <div className="Description">{description}</div>
