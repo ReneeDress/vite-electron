@@ -1,6 +1,11 @@
+import StatCard from "/@/components/StatCard";
+import './index.less';
+
 const Display = () => {
     return (
-        <div className="Display">Display</div>
+        <div className="Display">
+            <StatCard />
+        </div>
     )
 };
 
