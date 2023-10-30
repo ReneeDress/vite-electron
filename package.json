@@ -1,5 +1,5 @@
 {
-  "name": "vite-electron-builder",
+  "name": "ThreadInspection",
   "description": "Secure boilerplate for Electron app based on Vite",
   "version": "1.0.2",
   "private": true,
@@ -15,7 +15,7 @@
     "build:preload": "cd ./packages/preload && vite build",
     "build:renderer": "cd ./packages/renderer && vite build",
     "build:renderer-react": "cd ./packages/renderer_react && vite build",
-    "compile": "cross-env MODE=production npm run build && electron-builder build --config .electron-builder.config.js --dir --config.asar=false",
+    "compile": "cross-env MODE=production npm run build && electron-builder build -mwl --config .electron-builder.config.js --dir --config.asar=false",
     "test": "npm run test:main && npm run test:preload && npm run test:renderer && npm run test:e2e",
     "test:e2e": "npm run build && vitest run",
     "test:main": "vitest run -r packages/main --passWithNoTests",
