@@ -2,14 +2,14 @@ import { getUserData, api, electron } from '#preload';
 import { useEffect, useState } from 'react';
 import { Divider, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { Link } from 'react-router-dom';
+import { CamelCaseToPharse } from '/@/common/utils';
 
 const { ipcRenderer } = electron;
 
 const USBDevices = () => {
     const [devices, setDevices] = useState<any[]>([]);
 
-    const muiCols: any[] = [
+    const colFields: any[] = [
         { field: 'vendorId', },
         { field: 'vendorIdHex', },
         { field: 'manufacturerName', },
@@ -19,15 +19,15 @@ const USBDevices = () => {
         { field: 'serialNumber', }
     ];
 
-    const antdCols: ColumnsType<any> = muiCols.map((i, index) => {
+    const antdCols: ColumnsType<any> = colFields.map((i, index) => {
         return {
             ...i,
             dataIndex: i.field,
-            title: i?.headerName || i.field,
+            title: CamelCaseToPharse(i?.headerName || i.field),
             colSpan: 1,
             sorter: {
                 compare: (a, b) => a[i.field] - b[i.field],
-                multiple: muiCols.length - index + 1,
+                multiple: colFields.length - index + 1,
             },
             filters: []
         }
@@ -76,10 +76,6 @@ const USBDevices = () => {
 
     return (
         <>
-            <p>USBDevices</p>
-            <p>
-                <Link to={'/'}>Home</Link>
-            </p>
             <p>
                 <button onClick={onClickGetDevices}>onClickGetDevices</button>
             </p>

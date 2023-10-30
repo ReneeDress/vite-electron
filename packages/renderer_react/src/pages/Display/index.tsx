@@ -93,6 +93,7 @@ const Display = () => {
             {
                 chartDatas.map((chartD, chartIndex: number) => 
                     <StatCard 
+                        key={chartD?.title}
                         type='chart' 
                         title={chartD?.title} 
                         data={chartD} 

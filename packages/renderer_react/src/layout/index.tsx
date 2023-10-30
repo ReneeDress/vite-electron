@@ -27,17 +27,18 @@ const DefaultLayout = () => {
     else return undefined
   }).filter((i) => i);
 
-  const [selectedHeaderIndex, setSelectedHeaderIndex] = useState<string>('/');
+  const [selectedHeaderIndex, setSelectedHeaderIndex] = useState<string>('/#/');
 
   const handleMenuItemClick = (info: any) => {
     navigate(info.key);
   }
 
   const ifSider = () => {
+    const matchedPagePathname = `${location.pathname.split('/')[1]}`;
     const children = routes.find((item) => {
-        return (item.path !== '/') &&  ((item.path)?.indexOf(location.pathname) ?? -1) >= 0;
+        return (item.path !== '/') &&  ((item.path)?.indexOf(matchedPagePathname) ?? -1) >= 0;
     })?.children;
-    console.log('[DefaultLayout]', children);
+    console.log('[DefaultLayout]', matchedPagePathname, children ?? 'no children');
     return children ? true : false
   };
 
@@ -46,11 +47,12 @@ const DefaultLayout = () => {
   const [currentPageInfo, setCurrentPageInfo] = useState<any>();
 
   useEffect(() => {
-    console.log('[DefaultLayout]','location changed', `/${location.pathname.split('/')[1]}`);
-    setSelectedHeaderIndex(`/${location.pathname.split('/')[1]}`);
+    const matchedPagePathname = `${location.pathname.split('/')[1]}`;
+    console.log('[DefaultLayout]','location changed', matchedPagePathname);
+    setSelectedHeaderIndex(matchedPagePathname);
     const matchedPage = customRoutes.find((item) => {
-      console.log(item.route.path, (item.route.path)?.indexOf(location.pathname), item)
-        return ((item.route.path)?.indexOf(location.pathname) ?? -1) >= 0;
+      // console.log(item.route.path, (item.route.path)?.indexOf(matchedPagePathname), item)
+      return ((item.route.path)?.indexOf(matchedPagePathname) ?? -1) >= 0;
     });
     console.log('[DefaultLayout]','matchedPage', matchedPage);
     if (matchedPage)
@@ -59,7 +61,7 @@ const DefaultLayout = () => {
 
   return (
     <Layout style={{ width: '100%', height: '100%', minHeight: '100vh', }}>
-      <Header style={{ display: 'flex', alignItems: 'center' }}>
+      <Header style={{ display: 'flex', alignItems: 'center', position: 'sticky', top: 0, left: 0, zIndex: 100, }}>
         <div className="demo-logo" />
         <Menu
           theme="dark"

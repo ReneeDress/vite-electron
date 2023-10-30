@@ -5,6 +5,7 @@ import SystemInfo from './SystemInfo';
 import CameraCalibration from './CameraCalibration';
 import Measurement from './Measurement';
 import HistoryLogs from './HistoryLogs';
+import MeasureLogs from './HistoryLogs/MeasureLogs';
 
 interface CustomRouteObject {
   route: RouteObject;
@@ -46,7 +47,10 @@ export const customRoutes: CustomRouteObject[] = [
       path: 'history-logs',
       element: <HistoryLogs />,
       children: [
-        
+        {
+          path: 'measure-logs',
+          element: <MeasureLogs />
+        }
       ]
     },
     menuData: {

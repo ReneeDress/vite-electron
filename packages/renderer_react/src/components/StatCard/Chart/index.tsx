@@ -24,6 +24,7 @@ const Chart = (props: ReactEChartsProps) => {
             // 在组件销毁时，移除事件监听
             return () => {
                 window.removeEventListener('resize', handleResize);
+                chartInstance.dispose();
             };
         }
     }, []);
