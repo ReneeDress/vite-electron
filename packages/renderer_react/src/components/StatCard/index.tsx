@@ -1,7 +1,8 @@
+import { useRef, MutableRefObject, } from 'react';
 import { Card } from 'antd';
 import { EChartsOption, SetOptionOpts } from 'echarts';
 import './index.less';
-import PieChart from './PieChart';
+import Chart from './Chart';
 import { CSSProperties } from 'react';
 
 interface StatCardProps {
@@ -9,6 +10,7 @@ interface StatCardProps {
     data?: any;
     title?: string;
     description?: string;
+    style?: CSSProperties;
 }
 
 export interface ReactEChartsProps {
@@ -17,20 +19,26 @@ export interface ReactEChartsProps {
     settings?: SetOptionOpts;
     loading?: boolean;
     theme?: "light" | "dark";
+    containerDom: MutableRefObject<any>;
   }
 
 const StatCard = (props: StatCardProps) => {
-    const { type = 'plain', data = {}, title = '默认标题', description } = props;
-    
+    const { type = 'plain', data = {}, title = '默认标题', description, style } = props;
+    const containerDom = useRef(null);
+
     return (
-        <div className="StatCard">
-            <Card className='CardContainer' title={title} bordered={false}>
+        <div className="StatCard" style={style}>
+            <Card className='CardContainer' ref={containerDom} title={title} bordered={false}>
                 {
                     description ? 
                     <div className="Description">{description}</div>
                     : <></>
                 }
-                <PieChart option={data.option} />
+                {
+                    type === 'chart' ?
+                    <Chart option={data.option} containerDom={containerDom} />
+                    : <></>
+                }
             </Card>
         </div>
     )

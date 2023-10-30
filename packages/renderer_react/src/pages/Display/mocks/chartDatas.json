@@ -1,0 +1,129 @@
+{
+    "WeeklyCount": {
+        "xAxis": {
+          "type": "category",
+          "data": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+        },
+        "yAxis": {
+          "type": "value"
+        },
+        "series": [
+          {
+            "type": "line",
+            "name": "每周检测量",
+            "data": [120, 150, 140, 165, 180, 160, 145]
+          },
+          {
+            "type": "line",
+            "name": "每周平均值",
+            "data": [135, 135, 135, 135, 135, 135, 135]
+          }
+        ],
+        "legend": {
+          "data": ["每周检测量", "每周平均值"]
+        }
+      }
+      ,
+    "MonthlyCount": {
+        "xAxis": {
+          "type": "category",
+          "data": ["周1", "周2", "周3", "周4", "月1", "月2", "月3"]
+        },
+        "yAxis": {
+          "type": "value"
+        },
+        "series": [
+          {
+            "type": "bar",
+            "name": "每周检测量",
+            "data": [120, 150, 140, 165, 180, 160, 145]
+          },
+          {
+            "type": "bar",
+            "name": "每月检测量",
+            "data": [650, 700, 720]
+          }
+        ],
+        "legend": {
+          "data": ["每周检测量", "每月检测量"]
+        }
+      }
+      ,
+    "TypeDistribution": {
+        "series": [
+          {
+            "type": "pie",
+            "radius": "50%",
+            "data": [
+              { "value": 30, "name": "类型A" },
+              { "value": 25, "name": "类型B" },
+              { "value": 20, "name": "类型C" },
+              { "value": 25, "name": "类型D" }
+            ]
+          }
+        ],
+        "legend": {
+          "data": ["类型A", "类型B", "类型C", "类型D"]
+        }
+      }
+      ,
+    "MultiDimensionComparsion": {
+        "radar": {
+          "indicator": [
+            { "name": "参数1", "max": 100 },
+            { "name": "参数2", "max": 100 },
+            { "name": "参数3", "max": 100 },
+            { "name": "参数4", "max": 100 },
+            { "name": "参数5", "max": 100 }
+          ]
+        },
+        "series": [
+          {
+            "type": "radar",
+            "data": [
+              {
+                "value": [90, 85, 70, 80, 95],
+                "name": "检测结果"
+              }
+            ]
+          }
+        ]
+      }
+      ,
+    "QualifiedRate": {
+        "legend": {
+          "top": "bottom"
+        },
+        "toolbox": {
+          "show": true,
+          "feature": {
+            "mark": { "show": true },
+            "dataView": { "show": true, "readOnly": false },
+            "restore": { "show": true },
+            "saveAsImage": { "show": true }
+          }
+        },
+        "series": [
+          {
+            "name": "Nightingale Chart",
+            "type": "pie",
+            "radius": [50, 250],
+            "center": ["50%", "50%"],
+            "roseType": "ares",
+            "itemStyle": {
+              "borderRadius": 8
+            },
+            "data": [
+              { "value": 40, "name": "rose 1" },
+              { "value": 38, "name": "rose 2" },
+              { "value": 32, "name": "rose 3" },
+              { "value": 30, "name": "rose 4" },
+              { "value": 28, "name": "rose 5" },
+              { "value": 26, "name": "rose 6" },
+              { "value": 22, "name": "rose 7" },
+              { "value": 18, "name": "rose 8" }
+            ]
+          }
+        ]
+      }
+}
