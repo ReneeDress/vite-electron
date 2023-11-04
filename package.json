@@ -63,6 +63,7 @@
     "@ant-design/icons": "^5.2.6",
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.1",
+    "@react-three/drei": "^9.88.11",
     "@react-three/fiber": "^8.15.9",
     "@types/three": "^0.158.1",
     "antd": "^5.10.0",
