@@ -1,5 +1,6 @@
 // import * as echarts from 'echarts';
 import { init, getInstanceByDom } from 'echarts';
+import 'echarts-gl';
 import { useEffect, useRef } from 'react';
 import { ReactEChartsProps } from '..';
 

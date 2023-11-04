@@ -63,8 +63,11 @@
     "@ant-design/icons": "^5.2.6",
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.1",
+    "@react-three/fiber": "^8.15.9",
+    "@types/three": "^0.158.1",
     "antd": "^5.10.0",
     "echarts": "^5.4.3",
+    "echarts-gl": "^2.0.9",
     "electron-updater": "6.1.4",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
@@ -72,6 +75,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "sort-by": "^1.2.0",
+    "three": "^0.158.0",
     "usb": "^2.11.0"
   }
 }

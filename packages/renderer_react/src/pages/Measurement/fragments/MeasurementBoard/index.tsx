@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button, Col, Row, } from 'antd';
 import { Measurement, MeasurementItemInfo, dataFormat } from "/@/types/db";
-import { getCurrentMeasurement } from '../../apis';
+import { getCurrentMeasurement, getCurrentModelOption } from '../../apis';
 import './index.less';
+import Chart from '/@/components/StatCard/Chart';
+import { Canvas, useFrame } from '@react-three/fiber';
+import Box from '/@/components/ThreeJS/Box';
 
 const MeasurementBoard = () => {
     const [currentMeasurement, setCurrentMeasurement] = useState<Measurement>();
+    const modelDom = useRef(null);
 
     const fetchData = async () => {
         const data: Measurement = await getCurrentMeasurement();
         setCurrentMeasurement(data);
+        const option: any = await getCurrentModelOption();
+        setCurrentModelOption(option);
     }
 
     useEffect(() => {
@@ -61,22 +67,27 @@ const MeasurementBoard = () => {
                         Object.keys(currentMeasurement?.data).map((item: string) => {
                             const itemMeasurement: dataFormat = currentMeasurement?.data[item];
                             return (
-                                <>
-                                    <Row className='dataRow' key={item}>
-                                        <Col className='dataCell itemName' span={5}>{`${MeasurementItemInfo[item]['locale']['zh-CN']} ${MeasurementItemInfo[item]['unit']}`}</Col>
-                                        <Col className='dataCell' span={5}>{itemMeasurement.measureValue}</Col>
-                                        <Col className='dataCell' span={5}>{itemMeasurement.standardValue}</Col>
-                                        <Col className='dataCell' span={5}>{itemMeasurement.tolerance}</Col>
-                                        <Col className='dataCell' span={4}>{itemMeasurement.compliance}</Col>
-                                    </Row>
-                                </>
+                                <Row className='dataRow' key={item}>
+                                    <Col className='dataCell itemName' span={5}>{`${MeasurementItemInfo[item]['locale']['zh-CN']} ${MeasurementItemInfo[item]['unit']}`}</Col>
+                                    <Col className='dataCell' span={5}>{itemMeasurement.measureValue}</Col>
+                                    <Col className='dataCell' span={5}>{itemMeasurement.standardValue}</Col>
+                                    <Col className='dataCell' span={5}>{itemMeasurement.tolerance}</Col>
+                                    <Col className='dataCell' span={4}>{itemMeasurement.compliance}</Col>
+                                </Row>
                             )
                         })
                         : <>Measuring</>
                     }
                 </div>
-                <div className="measurementBoard__content-right">
-                    threejs
+                <div className="measurementBoard__content-right" ref={modelDom}>
+                    {/* <Chart option={currentModelOption} containerDom={modelDom} /> */}
+
+                    <Canvas>
+                        <ambientLight />
+                        <pointLight position={[10, 10, 10]} />
+                        <Box position={[-1.2, 0, 0]} />
+                        <Box position={[1.2, 0, 0]} />
+                    </Canvas>
                 </div>
                 
             </div>
