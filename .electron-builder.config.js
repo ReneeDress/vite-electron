@@ -21,6 +21,23 @@ module.exports = async function () {
       version: getVersion(),
     },
 
+    "win": {
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "msi",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+
     // Specify linux target just for disabling snap compilation
     linux: {
       target: 'deb',
