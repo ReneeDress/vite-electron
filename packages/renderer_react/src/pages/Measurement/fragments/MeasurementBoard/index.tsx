@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button, Col, Row, } from 'antd';
 import { Measurement, MeasurementItemInfo, dataFormat } from "/@/types/db";
-import { getCurrentMeasurement, getCurrentModelOption } from '../../apis';
+import { getCurrentMeasurement } from '../../apis';
 import './index.less';
 import Chart from '/@/components/StatCard/Chart';
 import { Canvas, useFrame } from '@react-three/fiber';
 import Box from '/@/components/ThreeJS/Box';
+import Model from '/@/components/ThreeJS/Model';
 
 const MeasurementBoard = () => {
     const [currentMeasurement, setCurrentMeasurement] = useState<Measurement>();
@@ -14,8 +15,6 @@ const MeasurementBoard = () => {
     const fetchData = async () => {
         const data: Measurement = await getCurrentMeasurement();
         setCurrentMeasurement(data);
-        const option: any = await getCurrentModelOption();
-        setCurrentModelOption(option);
     }
 
     useEffect(() => {
@@ -87,6 +86,7 @@ const MeasurementBoard = () => {
                         <pointLight position={[10, 10, 10]} />
                         <Box position={[-1.2, 0, 0]} />
                         <Box position={[1.2, 0, 0]} />
+                        <Model position={[0, 0, 0]} />
                     </Canvas>
                 </div>
                 
