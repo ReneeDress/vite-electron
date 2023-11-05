@@ -41,6 +41,7 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+          NODE_OPTIONS: "--max_old_space_size=4096"
 
       - run: npm run build
 
@@ -55,6 +56,7 @@ jobs:
           shell: 'bash'
           command: npx --no-install electron-builder --config.npmRebuild=false --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
         env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
           # Code Signing params
           # See https://www.electron.build/code-signing
           # CSC_LINK: ''
