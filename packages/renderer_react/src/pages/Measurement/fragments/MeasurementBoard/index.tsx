@@ -1,20 +1,14 @@
-import { useState, useEffect, useRef, Suspense } from 'react';
-import { Button, Col, InputNumber, Row, } from 'antd';
+import { useState, useEffect, useRef } from 'react';
+import { Button, Col, Row, } from 'antd';
 import { Measurement, MeasurementItemInfo, dataFormat } from "/@/types/db";
 import { getCurrentMeasurement } from '../../apis';
 import './index.less';
-import Chart from '/@/components/StatCard/Chart';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import Box from '/@/components/ThreeJS/Box';
-import Model from '/@/components/ThreeJS/Model';
 import { getPoints } from '/@/components/ThreeJS/apis';
-import { Vector3 } from 'three';
+import ThreeJsCanvas from '../../components/ThreeJsCanvas';
 
 const MeasurementBoard = () => {
     const [currentMeasurement, setCurrentMeasurement] = useState<Measurement>();
     const modelDom = useRef(null);
-    const [cameraPosition, setCameraPosition] = useState<number[]>([100000, 400000, 100000]);
 
     const [points, setPoints] = useState<any>({});
 
@@ -22,12 +16,10 @@ const MeasurementBoard = () => {
         const data: Measurement = await getCurrentMeasurement();
         setCurrentMeasurement(data);
 
-        const pointsUp = await getPoints('UP');
-        const pointsDown = await getPoints('DOWN');
+        const pointsFull = await getPoints();
         setPoints({
             ...points,
-            0: pointsUp,
-            180: pointsDown,
+            0: pointsFull,
         });
     }
 
@@ -94,21 +86,7 @@ const MeasurementBoard = () => {
                 </div>
                 <div className="measurementBoard__content-right" ref={modelDom}>
                     {/* <Chart option={currentModelOption} containerDom={modelDom} /> */}
-                    <InputNumber defaultValue={cameraPosition[0]} onChange={(value) => {setCameraPosition([value ?? 0, cameraPosition[1], cameraPosition[2]])}} />
-                    <InputNumber defaultValue={cameraPosition[1]} onChange={(value) => {setCameraPosition([cameraPosition[0], value ?? 0, cameraPosition[2]])}} />
-                    <InputNumber defaultValue={cameraPosition[2]} onChange={(value) => {setCameraPosition([cameraPosition[0], cameraPosition[1], value ?? 0])}} />
-                    <Canvas
-                        camera={{ fov: 75, near: 0.1, far: 1000000, position: new Vector3(...cameraPosition) }}
-                    >
-                        <Suspense fallback={null}>
-                            <ambientLight />
-                            {/* <pointLight position={[200, 20, 20]} /> */}
-                            {/* <Box position={[-1.2, 0, 0]} /> */}
-                            {/* <Box position={[1.2, 0, 0]} /> */}
-                            <OrbitControls makeDefault />
-                            <Model position={[0, 0, 0]} points={points['0']} />
-                        </Suspense>
-                    </Canvas>
+                    <ThreeJsCanvas />
                 </div>
                 
             </div>
