@@ -3,6 +3,7 @@ import './security-restrictions';
 import { restoreOrCreateWindow } from '/@/mainWindow';
 import { platform } from 'node:process';
 import { getUSBDevices } from './usbDevices';
+import { testPython } from './python';
 
 /**
  * Prevent electron from running multiple instances.
@@ -94,3 +95,4 @@ if (import.meta.env.PROD) {
 
 
 ipcMain.on('getUSBDevices', getUSBDevices);
+ipcMain.on('testPython', testPython);

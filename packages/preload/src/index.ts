@@ -31,6 +31,13 @@ export const api = {
             cb(event, res);
         });
     },
+
+    onTestPython: (cb: any) => {
+        ipcRenderer.once('testPython-reply', (event, res) => {
+            console.log('preload event', event, res);
+            cb(event, res);
+        });
+    },
 };
 
 export const electron = electronAPI;

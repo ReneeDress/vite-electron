@@ -52,6 +52,13 @@ const SystemInfo = () => {
                 }
             }));
         })
+
+        // 给主进程发送消息
+        ipcRenderer.send('testPython', { msg: 'test' })
+        // 通过preload接收主进程的回调信息
+        api.onTestPython((event: Electron.IpcRendererEvent, res: any[]) => {
+            console.log(event, res)
+        })
         
         
         console.log(getUserData('../../renderer_react/src/pages/USBDevices/test.json').then((res) => console.log('../../renderer_react/src/pages/USBDevices/test.json', res)));
@@ -74,6 +81,18 @@ const SystemInfo = () => {
         })
     }
 
+    const onClickTestPython = () => {
+        console.log('onClickTestPython');
+
+        // 给主进程发送消息
+        ipcRenderer.send('testPython', { msg: 'test' })
+        // 通过preload接收主进程的回调信息
+        api.onTestPython((event: Electron.IpcRendererEvent, res: any[]) => {
+            console.log(event, res)
+        })
+    }
+
+
     return (
         <>
             <p>SystemInfo</p>
@@ -82,6 +101,7 @@ const SystemInfo = () => {
             </p>
             <p>
                 <button onClick={onClickGetDevices}>onClickGetDevices</button>
+                <button onClick={onClickTestPython}>onClickTestPython</button>
             </p>
             <div>
 
