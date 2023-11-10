@@ -4,6 +4,8 @@ import { restoreOrCreateWindow } from '/@/mainWindow';
 import { platform } from 'node:process';
 import { getUSBDevices } from './usbDevices';
 import { testPython } from './python';
+import { getSystemInfo } from './system';
+
 
 /**
  * Prevent electron from running multiple instances.
@@ -18,7 +20,7 @@ app.on('second-instance', restoreOrCreateWindow);
 /**
  * Disable Hardware Acceleration to save more system resources.
  */
-app.disableHardwareAcceleration();
+// app.disableHardwareAcceleration();
 
 /**
  * Shout down background process if all windows was closed
@@ -96,3 +98,4 @@ if (import.meta.env.PROD) {
 
 ipcMain.on('getUSBDevices', getUSBDevices);
 ipcMain.on('testPython', testPython);
+ipcMain.on('getSystemInfo', getSystemInfo);
