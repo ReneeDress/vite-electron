@@ -4,11 +4,12 @@ import { OrbitControls } from '@react-three/drei';
 import Model from '/@/components/ThreeJS/Model';
 import { getPoints } from '/@/components/ThreeJS/apis';
 import { Vector3 } from 'three';
-import { useControls } from 'leva';
+// import { useControls } from 'leva';
 
 const ThreeJsCanvas = () => {
-    const { position } = useControls("Camera", { position: { x: 0, y: 0, z: 0 } });
-    const { color } = useControls("Mesh", { color: '#ffffff' });
+    // const { position } = useControls("Camera", { position: { x: 0, y: 0, z: 0 } });
+    // const { color } = useControls("Mesh", { color: '#ffffff' });
+    const [color, setColor] = '#ffffff';
     // red green blue
     const [cameraPosition, setCameraPosition] = useState<number[]>([0, 0, 12000]);
     const [points, setPoints] = useState<any>({});

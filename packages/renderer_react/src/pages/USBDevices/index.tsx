@@ -42,7 +42,7 @@ const USBDevices = () => {
         // 给主进程发送消息
         ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device: any) => {
+            setDevices(res?.map((device: any) => {
                 return {
                     ...device,
                     id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
@@ -53,7 +53,7 @@ const USBDevices = () => {
         // 通过preload接收主进程的回调信息
         // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
         //     console.log(event, res)
-        //     setDevices(res.map((device) => {
+        //     setDevices(res?.map((device) => {
         //         return {
         //             ...device,
         //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
@@ -71,7 +71,7 @@ const USBDevices = () => {
         // 给主进程发送消息
         ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device: any) => {
+            setDevices(res?.map((device: any) => {
                 return {
                     ...device,
                     id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
@@ -82,7 +82,7 @@ const USBDevices = () => {
         // 通过preload接收主进程的回调信息
         // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
         //     console.log(event, res)
-        //     setDevices(res.map((device) => {
+        //     setDevices(res?.map((device) => {
         //         return {
         //             ...device,
         //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
