@@ -22,7 +22,7 @@ const App = () => {
   
   useEffect(() => {
     console.log(params.get('electronWindow'));
-    if (params.get('electronWindow') === 'sub') {
+    if (params.get('electronWindow') === 'Whorl Inspection | Display') {
       location.hash = '/display';
       location.search = '';
     }

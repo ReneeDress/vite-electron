@@ -5,6 +5,7 @@ import { platform } from 'node:process';
 import { getUSBDevices } from './usbDevices';
 import { testPython } from './python';
 import { getSystemInfo } from './system';
+import WebSocket, { WebSocketServer } from 'ws';
 
 
 /**
@@ -99,3 +100,40 @@ if (import.meta.env.PROD) {
 ipcMain.handle('getUSBDevices', getUSBDevices);
 ipcMain.on('testPython', testPython);
 ipcMain.handle('getSystemInfo', getSystemInfo);
+
+// 在Electron的主进程中
+const wss: WebSocketServer = new WebSocketServer({
+  port: 8567,
+  perMessageDeflate: {
+    zlibDeflateOptions: {
+      // See zlib defaults.
+      chunkSize: 1024,
+      memLevel: 7,
+      level: 3
+    },
+    zlibInflateOptions: {
+      chunkSize: 10 * 1024
+    },
+    // Other options settable:
+    clientNoContextTakeover: true, // Defaults to negotiated value.
+    serverNoContextTakeover: true, // Defaults to negotiated value.
+    serverMaxWindowBits: 10, // Defaults to negotiated value.
+    // Below options specified as default values.
+    concurrencyLimit: 10, // Limits zlib concurrency for perf.
+    threshold: 1024 // Size (in bytes) below which messages
+    // should not be compressed if context takeover is disabled.
+  }
+});
+
+wss.on('connection', (ws: WebSocket) => {
+  console.log('A new client Connected!');
+  ws.send('Welcome New Client!');
+
+  ws.on('message', (data: any) => {
+    // 处理从Python发送的数据
+    console.log(data);
+    // 你可以在这里将接收到的数据转发给渲染进程
+  });
+});
+
+console.log('WebSocket server is running on port 8567');
