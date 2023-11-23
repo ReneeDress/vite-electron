@@ -97,5 +97,5 @@ if (import.meta.env.PROD) {
 
 
 ipcMain.handle('getUSBDevices', getUSBDevices);
-ipcMain.handle('testPython', testPython);
+ipcMain.on('testPython', testPython);
 ipcMain.handle('getSystemInfo', getSystemInfo);

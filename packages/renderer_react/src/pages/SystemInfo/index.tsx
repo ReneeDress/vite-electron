@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const { ipcRenderer } = electron;
 
 const SystemInfo = () => {
-    const [devices, setDevices] = useState<any[]>([]);
+    const [systmInfo, setSystemInfo] = useState<any>();
 
     const muiCols: any[] = [
         { field: 'vendorId', },
@@ -40,27 +40,10 @@ const SystemInfo = () => {
         // console.log(doSomething());
 
         // 给主进程发送消息
-        ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
+        ipcRenderer.invoke('getSystemInfo', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device: any) => {
-                return {
-                    ...device,
-                    id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-                    key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-                }
-            }));
+            setSystemInfo(res);
         })
-        // 通过preload接收主进程的回调信息
-        // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
-        //     console.log(event, res)
-        //     setDevices(res.map((device) => {
-        //         return {
-        //             ...device,
-        //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-        //             key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-        //         }
-        //     }));
-        // })
 
         // 给主进程发送消息
         ipcRenderer.send('testPython', { msg: 'test' })
@@ -76,27 +59,10 @@ const SystemInfo = () => {
     const onClickGetDevices = () => {
         console.log('onClickGetDevices');
         // 给主进程发送消息
-        ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
+        ipcRenderer.invoke('getSystemInfo', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device: any) => {
-                return {
-                    ...device,
-                    id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-                    key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-                }
-            }));
+            setSystemInfo(res);
         })
-        // 通过preload接收主进程的回调信息
-        // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
-        //     console.log(event, res)
-        //     setDevices(res.map((device) => {
-        //         return {
-        //             ...device,
-        //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-        //             key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
-        //         }
-        //     }));
-        // })
     }
 
     const onClickTestPython = () => {
@@ -122,7 +88,7 @@ const SystemInfo = () => {
                 <button onClick={onClickTestPython}>onClickTestPython</button>
             </p>
             <div>
-
+                {JSON.stringify(systmInfo)}
             </div>
             
             <Divider />
