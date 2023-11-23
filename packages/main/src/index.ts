@@ -109,10 +109,10 @@ const wss: WebSocketServer = new WebSocketServer({
       // See zlib defaults.
       chunkSize: 1024,
       memLevel: 7,
-      level: 3
+      level: 3,
     },
     zlibInflateOptions: {
-      chunkSize: 10 * 1024
+      chunkSize: 10 * 1024,
     },
     // Other options settable:
     clientNoContextTakeover: true, // Defaults to negotiated value.
@@ -120,19 +120,24 @@ const wss: WebSocketServer = new WebSocketServer({
     serverMaxWindowBits: 10, // Defaults to negotiated value.
     // Below options specified as default values.
     concurrencyLimit: 10, // Limits zlib concurrency for perf.
-    threshold: 1024 // Size (in bytes) below which messages
+    threshold: 1024, // Size (in bytes) below which messages
     // should not be compressed if context takeover is disabled.
-  }
+  },
 });
 
 wss.on('connection', (ws: WebSocket) => {
   console.log('A new client Connected!');
   ws.send('Welcome New Client!');
 
-  ws.on('message', (data: any) => {
+  ws.on('message', (buffer: any) => {
     // 处理从Python发送的数据
-    console.log(data);
+    // console.log(buffer);
+    const string = buffer.toString('utf-8');
+    console.log(string);
+    ws.send(`Received ${string}`);
     // 你可以在这里将接收到的数据转发给渲染进程
+
+
   });
 });
 
