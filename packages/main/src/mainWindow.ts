@@ -60,16 +60,16 @@ async function createWindow(title?: string) {
  * Restore an existing BrowserWindow or Create a new BrowserWindow.
  */
 export async function restoreOrCreateWindow() {
-  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title === 'main');
-  let subWindow = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title !== 'main');
+  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title === 'Whorl Inspection | Main');
+  let subWindow = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title !== 'Whorl Inspection | Main');
   console.log('restoreOrCreateWindow', window, window?.title, subWindow);
 
   if (window === undefined) {
-    window = await createWindow('main');
+    window = await createWindow('Whorl Inspection | Main');
   }
 
   if (subWindow === undefined) {
-    subWindow = await createWindow('sub');
+    subWindow = await createWindow('Whorl Inspection | Display');
   }
 
   if (window.isMinimized()) {

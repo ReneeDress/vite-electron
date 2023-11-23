@@ -5,6 +5,7 @@ const detectSystemInfo = async () => {
     return {
         platform: os.platform(),
         release: os.release(),
+        arch: os.arch(),
         node: {
             
         },
