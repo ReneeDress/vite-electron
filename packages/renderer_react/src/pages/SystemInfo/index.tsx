@@ -40,11 +40,9 @@ const SystemInfo = () => {
         // console.log(doSomething());
 
         // 给主进程发送消息
-        ipcRenderer.send('getUSBDevices', { msg: 'test' })
-        // 通过preload接收主进程的回调信息
-        api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
+        ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device) => {
+            setDevices(res.map((device: any) => {
                 return {
                     ...device,
                     id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
@@ -52,6 +50,17 @@ const SystemInfo = () => {
                 }
             }));
         })
+        // 通过preload接收主进程的回调信息
+        // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
+        //     console.log(event, res)
+        //     setDevices(res.map((device) => {
+        //         return {
+        //             ...device,
+        //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+        //             key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+        //         }
+        //     }));
+        // })
 
         // 给主进程发送消息
         ipcRenderer.send('testPython', { msg: 'test' })
@@ -67,11 +76,9 @@ const SystemInfo = () => {
     const onClickGetDevices = () => {
         console.log('onClickGetDevices');
         // 给主进程发送消息
-        ipcRenderer.send('getUSBDevices', { msg: 'test' })
-        // 通过preload接收主进程的回调信息
-        api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
+        ipcRenderer.invoke('getUSBDevices', { msg: 'test' }).then((res) => {
             console.log(event, res)
-            setDevices(res.map((device) => {
+            setDevices(res.map((device: any) => {
                 return {
                     ...device,
                     id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
@@ -79,6 +86,17 @@ const SystemInfo = () => {
                 }
             }));
         })
+        // 通过preload接收主进程的回调信息
+        // api.onGetUSBDevices((event: Electron.IpcRendererEvent, res: any[]) => {
+        //     console.log(event, res)
+        //     setDevices(res.map((device) => {
+        //         return {
+        //             ...device,
+        //             id: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+        //             key: (`${device?.vendorId}-${device?.productId}` || device?.legacy?.deviceDescriptor?.idProduct || device?.deviceDescriptor?.idProduct) + Math.random(),
+        //         }
+        //     }));
+        // })
     }
 
     const onClickTestPython = () => {

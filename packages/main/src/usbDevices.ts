@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
+import { IpcMainInvokeEvent } from 'electron';
 import { usb, getDeviceList, WebUSBDevice } from 'usb';
 
 interface WebUSBDeviceWithLegacy extends WebUSBDevice {
@@ -48,11 +49,11 @@ const getWebUSBDevices = async () => {
     return webDevices || legacyDevices;
 };
 
-const getUSBDevices = (event: Electron.IpcMainEvent, arg: any[]) => {
+const getUSBDevices = (event: IpcMainInvokeEvent, arg: any[]) => {
     console.log('getUSBDevices', arg);
     // const legacyDevices: usb.Device[] = getDeviceList();
-    getWebUSBDevices()
-    .then((devices) => event.reply('getUSBDevices-reply', devices))
+    return getWebUSBDevices()
+    .then((devices) => devices)
     .catch((err) => console.log(err));    
 };
 
