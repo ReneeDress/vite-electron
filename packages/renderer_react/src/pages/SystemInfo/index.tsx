@@ -56,8 +56,8 @@ const SystemInfo = () => {
         console.log(getUserData('../../renderer_react/src/pages/USBDevices/test.json').then((res) => console.log('../../renderer_react/src/pages/USBDevices/test.json', res)));
     }, []);
 
-    const onClickGetDevices = () => {
-        console.log('onClickGetDevices');
+    const onClickGetSystemInfo = () => {
+        console.log('onClickGetSystemInfo');
         // 给主进程发送消息
         ipcRenderer.invoke('getSystemInfo', { msg: 'test' }).then((res) => {
             console.log(event, res)
@@ -84,7 +84,7 @@ const SystemInfo = () => {
                 <Link to={'/'}>Home</Link>
             </p>
             <p>
-                <button onClick={onClickGetDevices}>onClickGetDevices</button>
+                <button onClick={onClickGetSystemInfo}>onClickGetSystemInfo</button>
                 <button onClick={onClickTestPython}>onClickTestPython</button>
             </p>
             <div>
