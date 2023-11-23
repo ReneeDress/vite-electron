@@ -1,5 +1,5 @@
 import type { IpcMainInvokeEvent } from 'electron';
-import * as os from 'os';
+import * as os from 'node:os';
 
 const detectSystemInfo = async () => {
     return {
@@ -7,7 +7,10 @@ const detectSystemInfo = async () => {
         release: os.release(),
         arch: os.arch(),
         node: {
-            
+            version: process.version,
+        },
+        electron: {
+            version: process.versions.electron,
         },
     };
 };
