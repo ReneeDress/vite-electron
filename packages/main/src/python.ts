@@ -4,7 +4,7 @@ let options: any = {
   mode: 'text',
 //   pythonPath: 'path/to/python',
   pythonOptions: ['-u'], // get print results in real-time
-  scriptPath: '../../python',
+  scriptPath: 'packages/python',
   args: ['value1', 'value2', 'value3'],
 };
 
