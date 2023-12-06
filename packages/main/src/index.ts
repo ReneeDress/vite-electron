@@ -125,19 +125,35 @@ const wss: WebSocketServer = new WebSocketServer({
   },
 });
 
-wss.on('connection', (ws: WebSocket) => {
-  console.log('A new client Connected!');
+wss.on('connection', (ws: WebSocket, req: any) => {
+  // 如果使用的是WebSocket库的旧版本，可以尝试:
+  // const ip = req.connection.remoteAddress;
+  // const port = req.connection.remotePort;
+
+  // 对于新版本，你需要检查socket属性
+  const ip = req.socket.remoteAddress;
+  const port = req.socket.remotePort;
+
+  console.log(`Client connected: ${ip}:${port}`);
   ws.send('Welcome New Client!');
 
-  ws.on('message', (buffer: any) => {
+  // 也可以检查升级后的请求headers来获取更多信息
+  // const headers = req.headers;
+
+  // 处理websocket消息
+  ws.on('message', (message: any) => {
+    console.log(`Received message ${message} from user ${ip}:${port}`);
     // 处理从Python发送的数据
     // console.log(buffer);
-    const string = buffer.toString('utf-8');
+    const string = message.toString('utf-8');
     console.log(string);
     ws.send(`Received ${string}`);
     // 你可以在这里将接收到的数据转发给渲染进程
+  });
 
-
+  // 当客户端关闭连接
+  ws.on('close', () => {
+    console.log(`Client at ${ip}:${port} disconnected`);
   });
 });
 
