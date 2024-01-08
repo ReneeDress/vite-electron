@@ -12,21 +12,25 @@ export interface measureDataFormat {
 }
 
 export interface MeasurementData {
-    [key: string]: dataFormat;
+    [key: string]: dataFormat | undefined;
     // 螺纹长度L4 mm
-    threadLengthL4: dataFormat;
+    threadLengthL4?: dataFormat;
+    // 螺纹长度 mm
+    threadLength: dataFormat;
     // 螺纹锥度
     threadTaper: dataFormat;
     // 螺距 mm
     threadPitch: dataFormat;
-    // 齿高 mm
+    // 齿高 mm 牙高
     teethHeight: dataFormat;
     // 牙顶高 mm
     crestHeight: dataFormat;
     // 牙顶直径 mm
     crestDiameter: dataFormat;
     // 累计螺距 mm
-    cumulativePitch: dataFormat;
+    cumulativePitch?: dataFormat;
+    // 累计螺距误差 mm
+    cumulativePitchError: dataFormat;
     // 外倒角角度 °
     outerChamfer: dataFormat;
     // 牙形角 °
@@ -79,6 +83,12 @@ export const MeasurementItemInfo: MeasurementItemInfo = {
             'zh-CN': '螺纹长度L4'
         }
     },
+    threadLength: {
+        unit: 'mm',
+        locale: {
+            'zh-CN': '螺纹长度'
+        }
+    },
     threadTaper: {
         unit: '',
         locale: {
@@ -94,7 +104,7 @@ export const MeasurementItemInfo: MeasurementItemInfo = {
     teethHeight: {
         unit: 'mm',
         locale: {
-            'zh-CN': '齿高'
+            'zh-CN': '牙高/齿高'
         }
     },
     crestHeight: {
