@@ -19,7 +19,7 @@ const Model = (props: any) => {
     const [active, setActive] = useState(false)
     // Subscribe this component to the render-loop, rotate the mesh every frame
     useFrame((state, delta) => {
-      console.log(state);
+      // console.log(state);
       meshRef.current.rotation.x += delta / 30
       meshRef.current.rotation.y += delta / 10
       meshRef.current.rotation.z += delta / 5

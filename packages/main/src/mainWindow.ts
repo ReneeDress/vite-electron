@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, nativeTheme } from 'electron';
 import { join, resolve } from 'node:path';
 
 async function createWindow(title?: string) {
@@ -52,6 +52,8 @@ async function createWindow(title?: string) {
      */
     await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'), { query: { electronWindow: title ?? '' } });
   }
+
+  nativeTheme.themeSource = 'light';
 
   return browserWindow;
 }
