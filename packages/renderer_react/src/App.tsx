@@ -4,17 +4,27 @@ import { RouterProvider, createHashRouter } from 'react-router-dom';
 import { routes } from './pages/routes';
 import DefaultLayout from './layout';
 import Display from './pages/Display';
+import NewMeasurement from './pages/_New/Measurement';
+import NewDisplay from './pages/_New/Display';
 
 const router = createHashRouter([
   {
     path: '/',
+    element: <NewMeasurement />,
+  },
+  {
+    path: '/display',
+    element: <NewDisplay />
+  },
+  {
+    path: '/old/',
     element: <DefaultLayout />,
     children: [...routes],
   },
   {
-    path: '/display',
+    path: '/old/display',
     element: <Display />
-  }
+  },
 ]);
 
 const App = () => {
