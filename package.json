@@ -34,7 +34,8 @@
     "typecheck:main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck:preload": "tsc --noEmit -p packages/preload/tsconfig.json",
     "typecheck:renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
-    "typecheck": "npm run typecheck:main && npm run typecheck:preload && npm run typecheck:renderer",
+    "typecheck:renderer-react": "tsc --noEmit -p packages/renderer_react/tsconfig.json",
+    "typecheck": "npm run typecheck:main && npm run typecheck:preload",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.mjs",
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
@@ -43,6 +44,7 @@
     "@types/node": "18.17.18",
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.7",
+    "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "6.7.2",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.4",
