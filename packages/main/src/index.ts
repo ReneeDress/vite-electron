@@ -5,7 +5,8 @@ import { platform } from 'node:process';
 import { getUSBDevices } from './usbDevices';
 import { testPython } from './python';
 import { getSystemInfo } from './system';
-import WebSocket, { WebSocketServer } from 'ws';
+import type WebSocket from 'ws';
+import { WebSocketServer } from 'ws';
 
 
 /**
