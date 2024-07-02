@@ -14,6 +14,6 @@
     },
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
+  "include": ["src/**/*.ts", "../../types/**/*.d.ts", "../preload/src/database.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }

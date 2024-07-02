@@ -7,7 +7,9 @@ import { testPython } from './python';
 import { getSystemInfo } from './system';
 import type WebSocket from 'ws';
 import { WebSocketServer } from 'ws';
-
+import path from 'node:path';
+import { getSqlite3 } from './database/sqlite3';
+import './database/main';
 
 /**
  * Prevent electron from running multiple instances.
@@ -46,9 +48,22 @@ app.on('activate', () => {
  */
 app
   .whenReady()
-  .then(restoreOrCreateWindow)
   .then(() => {
-    console.log(BrowserWindow.getAllWindows());
+    console.log('Before window create');
+  })
+  .then(async () => {
+    const [window, subWindow] = await restoreOrCreateWindow();
+    console.log(window);
+    getSqlite3().then(database => {
+      console.log(database);
+      // ensure did-finish-load
+      setTimeout(() => {
+        window?.webContents.send('main-process-message', '[sqlite3] initialize success :)');
+      }, 999);
+    });
+  })
+  .then(() => {
+    const windows = BrowserWindow.getAllWindows();
   })
   .catch((e: any) => console.error('Failed create window:', e));
 
@@ -97,10 +112,17 @@ if (import.meta.env.PROD) {
     .catch((e: any) => console.error('Failed check and install updates:', e));
 }
 
-
 ipcMain.handle('getUSBDevices', getUSBDevices);
 ipcMain.on('testPython', testPython);
 ipcMain.handle('getSystemInfo', getSystemInfo);
+
+import.meta.env.VITE_DB_FILENAME = 'database.sql';
+
+// For sqlite3 initialize of Renderer process
+ipcMain.handle('get-database-path', () =>
+  path.join(app.getPath('userData'), (import.meta.env.VITE_DB_FILENAME ?? 'Chinook.db') as string),
+);
+
 
 // 在Electron的主进程中
 const wss: WebSocketServer = new WebSocketServer({

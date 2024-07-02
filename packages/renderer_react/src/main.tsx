@@ -8,9 +8,14 @@ import zhCN from 'antd/locale/zh_CN';
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     {/* <ThemeProvider theme={theme}> */}
-      <ConfigProvider locale={zhCN}>
-        <App />
-      </ConfigProvider>
+    <ConfigProvider locale={zhCN}>
+      <App />
+    </ConfigProvider>
     {/* </ThemeProvider> */}
   </React.StrictMode>
 )
+
+// Use contextBridge
+window.ipcRenderer.on('main-process-message', (_event, message) => {
+  console.log('main', message)
+})

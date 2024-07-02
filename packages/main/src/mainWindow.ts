@@ -39,7 +39,9 @@ async function createWindow(title?: string) {
     /**
      * Load from the Vite dev server for development.
      */
-    await browserWindow.loadURL(`${import.meta.env.VITE_DEV_SERVER_URL}?electronWindow=${title ?? ''}`);
+    await browserWindow.loadURL(
+      `${import.meta.env.VITE_DEV_SERVER_URL}?electronWindow=${title ?? ''}`,
+    );
   } else {
     /**
      * Load from the local file system for production and test.
@@ -50,7 +52,9 @@ async function createWindow(title?: string) {
      * @see https://github.com/nodejs/node/issues/12682
      * @see https://github.com/electron/electron/issues/6869
      */
-    await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'), { query: { electronWindow: title ?? '' } });
+    await browserWindow.loadFile(resolve(__dirname, '../../renderer_react/dist/index.html'), {
+      query: { electronWindow: title ?? '' },
+    });
   }
 
   nativeTheme.themeSource = 'light';
@@ -62,9 +66,23 @@ async function createWindow(title?: string) {
  * Restore an existing BrowserWindow or Create a new BrowserWindow.
  */
 export async function restoreOrCreateWindow() {
-  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title === 'Whorl Inspection | Main');
-  let subWindow = BrowserWindow.getAllWindows().find(w => !w.isDestroyed() && w?.title !== 'Whorl Inspection | Main');
+  let window = BrowserWindow.getAllWindows().find(
+    w => !w.isDestroyed() && w?.title === 'Whorl Inspection | Main',
+  );
+  let subWindow = BrowserWindow.getAllWindows().find(
+    w => !w.isDestroyed() && w?.title !== 'Whorl Inspection | Main',
+  );
   console.log('restoreOrCreateWindow', window, window?.title, subWindow);
+
+  // Test active push message to Renderer-process.
+  window?.webContents.on('did-finish-load', () => {
+    window?.webContents.send(
+      'main-process-message',
+      `${new Date().toLocaleString()} ${app.getPath('userData')} ${
+        process.resourcesPath
+      } ${__dirname} ${import.meta.env.DEV} ${import.meta.env.VITE_DB_FILENAME}`,
+    );
+  });
 
   if (window === undefined) {
     window = await createWindow('Whorl Inspection | Main');
@@ -83,4 +101,6 @@ export async function restoreOrCreateWindow() {
   }
 
   window.focus();
+
+  return [window, subWindow];
 }

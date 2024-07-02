@@ -7,8 +7,8 @@ interface SystemInfoProps extends FragmentProps {
 
 const SystemInfo = (props: SystemInfoProps) => {
     return (
-        <Wrapper title="机床信息">
-            机床信息
+        <Wrapper title="系统信息">
+            系统信息
         </Wrapper>
     )
 };

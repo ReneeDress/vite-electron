@@ -59,3 +59,9 @@ release
 /.idea/csv-plugin.xml
 npminstall-debug.log
 yarn-error.log
+
+userData/*
+!userData/*.sqlite3
+!userData/*.sqlite
+!userData/*.db
+!userData/*.sql
